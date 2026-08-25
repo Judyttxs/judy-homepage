@@ -1,0 +1,83 @@
+---
+const projects = [
+  {
+    title: "Obsidian 自建同步系统",
+    desc: "基于 Cloudflare Tunnel + Docker 构建的私有化笔记同步方案，多设备实时同步，数据完全自主可控。",
+    tech: ["Cloudflare Tunnel", "Docker", "Nginx", "YAML"],
+    status: "运行中",
+    url: "https://fns.judy666.icu",
+  },
+  {
+    title: "智慧校园 IoT 平台",
+    desc: "毕业设计，集成传感器数据采集、实时可视化大屏与异常告警，服务 3 栋教学楼。",
+    tech: ["Python", "MQTT", "Vue.js", "InfluxDB"],
+    status: "已完成",
+    url: "#",
+  },
+];
+---
+
+<section>
+  <h2 class="section-title">项目展示</h2>
+  <div class="cards">
+    {projects.map(p => (
+      <a href={p.url} class="glow-card card" target="_blank" rel="noopener">
+        <div class="card-top">
+          <span class="dot"></span>
+          <span class="status">{p.status}</span>
+        </div>
+        <h3>{p.title}</h3>
+        <p>{p.desc}</p>
+        <div class="tech-tags">
+          {p.tech.map(t => <span>{t}</span>)}
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: var(--space-card-gap);
+  }
+  .card {
+    padding: var(--space-card-pad);
+    text-decoration: none;
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .card-top { display: flex; align-items: center; gap: 0.5rem; }
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.4; } }
+  .status {
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    color: var(--accent-green);
+  }
+  .card h3 { font-size: clamp(1rem, 2vw, 1.15rem); font-weight: 600; }
+  .card p {
+    font-size: clamp(0.82rem, 1.5vw, 0.9rem);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    flex: 1;
+  }
+  .tech-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tech-tags span {
+    padding: 0.15rem 0.5rem;
+    background: rgba(168, 85, 247, 0.08);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    color: var(--accent-purple);
+  }
+</style>

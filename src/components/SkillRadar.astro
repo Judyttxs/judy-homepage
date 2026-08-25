@@ -1,0 +1,60 @@
+---
+const skills = ["数据结构", "操作系统", "计算机网络", "数据库", "编程语言", "DevOps"];
+const values = [0.9, 0.75, 0.85, 0.7, 0.8, 0.65];
+const cx = 200, cy = 200, maxR = 140;
+
+function pt(r: number, i: number, n: number) {
+  const a = (Math.PI * 2 * i / n) - Math.PI / 2;
+  return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+}
+function poly(r: number) {
+  return Array.from({length: 6}, (_, i) => pt(r, i, 6).join(',')).join(' ');
+}
+const dataPoly = values.map((v, i) => pt(maxR * v, i, 6).join(',')).join(' ');
+---
+
+<section>
+  <h2 class="section-title">能力概览</h2>
+  <div class="radar-wrap">
+    <svg viewBox="0 0 400 400" class="radar-svg" role="img" aria-label="技能雷达图">
+      {[1,2,3,4,5].map(l => (
+        <polygon points={poly(l * maxR / 5)} fill="none" stroke="rgba(148,163,184,0.12)" stroke-width="0.6" />
+      ))}
+      {Array.from({length:6}, (_,i) => {
+        const [x,y] = pt(maxR, i, 6);
+        return <line x1={cx} y1={cy} x2={x} y2={y} stroke="rgba(148,163,184,0.08)" stroke-width="0.5" />;
+      })}
+      <polygon points={dataPoly} fill="rgba(0,229,255,0.12)" stroke="var(--accent-cyan)" stroke-width="1.5" />
+      {skills.map((s, i) => {
+        const [x, y] = pt(maxR + 22, i, 6);
+        return <text x={x} y={y} text-anchor="middle" dominant-baseline="middle" class="lbl">{s}</text>;
+      })}
+    </svg>
+    <div class="radar-info">
+      <div><span class="k">编程语言</span><span class="v">Go · Python · C · JS</span></div>
+      <div><span class="k">基础设施</span><span class="v">Linux · Docker · Cloudflare · Nginx</span></div>
+      <div><span class="k">开发工具</span><span class="v">Git · Vim · Obsidian · VS Code</span></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .radar-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+  }
+  @media (max-width: 700px) {
+    .radar-wrap { grid-template-columns: 1fr; }
+  }
+  .radar-svg { width: 100%; max-width: 360px; margin: 0 auto; display: block; }
+  .lbl { fill: var(--text-secondary); font-size: 12px; }
+  .radar-info {
+    display: flex; flex-direction: column;
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .radar-info div { display: flex; flex-direction: column; gap: 0.25rem; }
+  .k { color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.85rem; }
+  .v { color: var(--text-secondary); font-size: 0.85rem; }
+</style>

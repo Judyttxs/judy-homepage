@@ -1,0 +1,47 @@
+---
+const items = [
+  { tag: "自建服务", title: "obsidian-sync-tunnel", desc: "基于 Cloudflare Tunnel 的 Obsidian 私有同步方案，含完整部署文档" },
+  { tag: "技术博客", title: "从零搭建 HomeLab", desc: "记录硬件选型、系统安装、服务配置的完整过程" },
+  { tag: "开源贡献", title: "Astro 中文文档翻译", desc: "修正部署指南中的术语错误，PR 已被合并" },
+  { tag: "社区活动", title: "校内 Linux 兴趣小组", desc: "核心成员，组织 20+ 场技术分享 Workshop" },
+];
+---
+
+<section>
+  <h2 class="section-title">开源 & 社区</h2>
+  <div class="grid">
+    {items.map(c => (
+      <div class="glow-card item">
+        <span class="tag">{c.tag}</span>
+        <h3>{c.title}</h3>
+        <p>{c.desc}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: var(--space-card-gap);
+  }
+  .item {
+    padding: var(--space-card-pad);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .tag {
+    width: fit-content;
+    padding: 0.15rem 0.5rem;
+    background: rgba(52, 211, 153, 0.08);
+    border: 1px solid rgba(52, 211, 153, 0.25);
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    color: var(--accent-green);
+  }
+  .item h3 { font-size: clamp(0.95rem, 1.8vw, 1.05rem); font-weight: 600; }
+  .item p { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.65; }
+</style>

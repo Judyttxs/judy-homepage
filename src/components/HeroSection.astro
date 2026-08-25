@@ -1,0 +1,140 @@
+---
+---
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="glitch" data-text="Judy">Judy</h1>
+    <p class="subtitle">
+      <span id="typed-text"></span><span class="cursor">▌</span>
+    </p>
+    <div class="tags">
+      <span>计算机科学与技术</span>
+      <span>2024 届毕业生</span>
+      <span>自建服务爱好者</span>
+    </div>
+    <button class="email-btn glow-card" id="email-btn">
+      <span class="prompt">❯</span> 复制邮箱：iambondgg@qq.com
+    </button>
+  </div>
+  <div class="toast" id="toast">✓ 邮箱已复制到剪贴板</div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1rem, 2.5vw, 1.8rem);
+  }
+  .glitch {
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 700;
+    font-family: var(--font-mono);
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glitch 4s infinite;
+  }
+  @keyframes glitch {
+    0%, 92%, 100% { transform: translate(0); }
+    93% { transform: translate(-2px, 1px); filter: hue-rotate(15deg); }
+    95% { transform: translate(2px, -1px); }
+    97% { transform: translate(-1px, -1px); filter: hue-rotate(-15deg); }
+  }
+  .subtitle {
+    font-family: var(--font-mono);
+    font-size: clamp(0.9rem, 2vw, 1.15rem);
+    color: var(--text-secondary);
+    min-height: 1.8em;
+  }
+  .cursor { animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(0.5rem, 1.5vw, 0.8rem);
+  }
+  .tags span {
+    padding: 0.35rem 0.9rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+    font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+    color: var(--accent-cyan);
+    background: rgba(0, 229, 255, 0.04);
+    transition: all 0.3s;
+  }
+  .tags span:hover {
+    background: rgba(0, 229, 255, 0.12);
+    border-color: var(--accent-cyan);
+  }
+  .email-btn {
+    margin-top: clamp(1rem, 3vw, 2rem);
+    padding: 0.75rem 1.4rem;
+    font-family: var(--font-mono);
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+    color: var(--accent-green);
+    cursor: pointer;
+    border: 1px solid var(--glass-border);
+    background: var(--bg-card);
+    transition: all 0.3s;
+  }
+  .email-btn:hover {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 24px rgba(52, 211, 153, 0.15);
+  }
+  .prompt { color: var(--accent-cyan); margin-right: 0.5rem; }
+  .toast {
+    position: fixed;
+    bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-green);
+    color: #0a0e1a;
+    padding: 0.5rem 1.4rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 10000;
+  }
+  .toast.show { opacity: 1; }
+</style>
+
+<script>
+  const phrases = [
+    '正在构建自己的数字基础设施 🏗️',
+    '计科毕业生 · Linux · 云服务 · 自建服务',
+    '把咖啡变成代码，从 2020 年开始 ☕',
+  ];
+  let pi = 0, ci = 0, del = false;
+  const el = document.getElementById('typed-text')!;
+
+  function type() {
+    const cur = phrases[pi];
+    el.textContent = cur.substring(0, ci);
+    if (!del) {
+      ci++;
+      if (ci > cur.length) { setTimeout(() => { del = true; type(); }, 2200); return; }
+    } else {
+      ci--;
+      if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; }
+    }
+    setTimeout(type, del ? 35 : 75);
+  }
+  type();
+
+  document.getElementById('email-btn')!.addEventListener('click', async () => {
+    await navigator.clipboard.writeText('iambondgg@qq.com');
+    const t = document.getElementById('toast')!;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  });
+</script>

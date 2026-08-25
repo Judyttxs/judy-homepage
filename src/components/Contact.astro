@@ -1,0 +1,136 @@
+---
+---
+<section>
+  <h2 class="section-title">联系我</h2>
+  <div class="contact-grid">
+    <div class="contact-left">
+      <p class="desc">无论是技术交流、项目合作还是随便聊聊，都欢迎联系我，通常 24 小时内回复。</p>
+      <div class="methods">
+        <button class="glow-card method" id="copy-email">
+          <span class="m-icon">📧</span>
+          <div class="m-info">
+            <span class="m-label">邮箱</span>
+            <span class="m-val">iambondgg@qq.com</span>
+          </div>
+          <span class="m-hint">点击复制</span>
+        </button>
+        <a href="https://github.com/" class="glow-card method" target="_blank" rel="noopener">
+          <span class="m-icon">🐙</span>
+          <div class="m-info">
+            <span class="m-label">GitHub</span>
+            <span class="m-val">github.com/judy</span>
+          </div>
+          <span class="m-hint">访问 →</span>
+        </a>
+        <a href="https://fns.judy666.icu" class="glow-card method" target="_blank" rel="noopener">
+          <span class="m-icon">📝</span>
+          <div class="m-info">
+            <span class="m-label">笔记站</span>
+            <span class="m-val">fns.judy666.icu</span>
+          </div>
+          <span class="m-hint">访问 →</span>
+        </a>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="t-bar">
+        <i class="d r"></i><i class="d y"></i><i class="d g"></i>
+        <span class="t-title">judy@homelab:~</span>
+      </div>
+      <div class="t-body">
+        <p><b>❯</b> whoami</p>
+        <p class="out">Judy · 计科毕业生 · 自建服务爱好者</p>
+        <p><b>❯</b> cat /etc/motto</p>
+        <p class="out">"代码是手段，解决问题才是目的。"</p>
+        <p><b>❯</b> uptime</p>
+        <p class="out">自 2020 年起，持续在线 ▌</p>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="c-toast">✓ 邮箱已复制到剪贴板</div>
+</section>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+  }
+  @media (max-width: 700px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+  .desc {
+    font-size: clamp(0.88rem, 1.6vw, 0.95rem);
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  }
+  .methods { display: flex; flex-direction: column; gap: 0.8rem; }
+  .method {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.9rem 1.1rem;
+    text-decoration: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    border: 1px solid var(--glass-border);
+    background: var(--bg-card);
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    font-size: inherit;
+  }
+  .m-icon { font-size: 1.3rem; }
+  .m-info { display: flex; flex-direction: column; flex: 1; }
+  .m-label { font-size: 0.72rem; color: var(--text-secondary); }
+  .m-val { font-family: var(--font-mono); font-size: 0.85rem; }
+  .m-hint {
+    font-size: 0.72rem;
+    color: var(--accent-cyan);
+    font-family: var(--font-mono);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .method:hover .m-hint { opacity: 1; }
+
+  .terminal {
+    background: rgba(10, 14, 26, 0.92);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+  .t-bar {
+    display: flex; align-items: center; gap: 0.45rem;
+    padding: 0.7rem 0.9rem;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .d { width: 9px; height: 9px; border-radius: 50%; }
+  .r { background: #ff5f57; } .y { background: #febc2e; } .g { background: #28c840; }
+  .t-title { margin-left: 0.4rem; color: var(--text-secondary); font-size: 0.72rem; }
+  .t-body { padding: 1rem 1.1rem; line-height: 1.9; }
+  .t-body b { color: var(--accent-cyan); font-weight: 400; margin-right: 0.4rem; }
+  .out { color: var(--accent-green); padding-left: 1.3rem; }
+
+  .toast {
+    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    background: var(--accent-green); color: #0a0e1a;
+    padding: 0.5rem 1.4rem; border-radius: 6px;
+    font-size: 0.85rem; opacity: 0; transition: opacity 0.3s;
+    pointer-events: none; z-index: 10000;
+  }
+  .toast.show { opacity: 1; }
+</style>
+
+<script>
+  document.getElementById('copy-email')?.addEventListener('click', async () => {
+    await navigator.clipboard.writeText('iambondgg@qq.com');
+    const t = document.getElementById('c-toast')!;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  });
+</script>
